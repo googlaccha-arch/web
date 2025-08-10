@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>14 August — Pakistan Independence Day</title>
+  <style>
+    :root{
+      --green:#046a38;
+      --light:#e6f6ec;
+      --white:#ffffff;
+      --accent:#0b9147;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.09);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      background: linear-gradient(180deg,var(--light) 0%, #f7fff8 40%);
+      color:var(--green);
+      display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;
+      position: relative; /* added for circle positioning */
+    }
+
+    .card{
+      width:100%;max-width:1100px;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
+      border-radius:18px;padding:28px;box-shadow:0 12px 40px rgba(4,106,56,0.12);position:relative;overflow:hidden;
+    }
+
+    /* header */
+    .top{
+      display:flex;align-items:center;gap:18px;justify-content:space-between;flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;align-items:center;gap:14px;
+    }
+    .logo{
+      width:82px;height:54px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(90deg,var(--green),var(--accent));box-shadow:inset 0 -8px 18px rgba(0,0,0,0.08);
+      padding:6px;
+    }
+    /* SVG flag container */
+    .flag-wrap{width:120px;height:72px}
+    .title{font-size:20px;font-weight:700;letter-spacing:0.4px}
+    .subtitle{font-size:13px;color:rgba(0,0,0,0.55)}
+
+    /* body layout */
+    .main{
+      display:grid;grid-template-columns: 1fr 420px;gap:20px;margin-top:20px;align-items:start;
+    }
+
+    /* left column */
+    .left{
+      padding:18px;border-radius:14px;background:linear-gradient(180deg,var(--glass),var(--glass-2));min-height:320px;
+    }
+
+    .countdown{display:flex;gap:12px;flex-wrap:wrap}
+    .tile{background:rgba(255,255,255,0.95);padding:16px;border-radius:12px;min-width:96px;text-align:center;box-shadow:0 6px 18px rgba(4,106,56,0.06)}
+    .tile .n{font-size:28px;font-weight:800;color:var(--green)}
+    .tile .l{font-size:12px;color:rgba(0,0,0,0.6);margin-top:6px}
+
+    .message{margin-top:16px;padding:12px;border-radius:10px;background:linear-gradient(90deg, rgba(4,106,56,0.04), rgba(11,145,71,0.03));border:1px solid rgba(4,106,56,0.04)}
+
+    /* right column */
+    .right{ padding:18px;border-radius:14px;background:linear-gradient(180deg,var(--glass),var(--glass-2));min-height:320px;display:flex;flex-direction:column;gap:12px}
+
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--green);color:var(--white);padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;color:var(--green);border:1px solid rgba(4,106,56,0.12)}
+
+    /* firework/confetti canvas layer */
+    #confetti{
+      position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:8
+    }
+
+    /* footer / flag area */
+    .flag-area{display:flex;gap:16px;align-items:center;justify-content:center;margin-top:18px}
+
+    /* simple SVG waving effect */
+    .waving{width:100%;display:flex;justify-content:center}
+    .flag{
+      width:320px;height:200px;border-radius:8px;overflow:hidden;box-shadow:0 18px 40px rgba(4,106,56,0.12);transform-origin:center;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float{0%{transform:translateY(0) rotate(-0.6deg)}50%{transform:translateY(-6px) rotate(0.6deg)}100%{transform:translateY(0) rotate(-0.6deg)}}
+
+    /* make the SVG itself appear waving by animating a mask translate */
+    .flag svg{width:100%;height:100%;display:block}
+    .wave-mask{animation:wave 2.2s linear infinite}
+    @keyframes wave{0%{transform:translateX(0)}100%{transform:translateX(-120px)}}
+
+    /* responsive */
+    @media (max-width:980px){
+      .main{grid-template-columns:1fr}
+      .flag{width:100%;height:160px}
+      .flag-wrap{width:88px;height:54px}
+      .title{font-size:18px}
+    }
+
+    @media (max-width:460px){
+      .card{padding:16px}
+      .tile{min-width:72px;padding:10px}
+      .n{font-size:20px}
+    }
+
+    /* little sparkle under title */
+    .spark{height:6px;width:86px;border-radius:6px;background:linear-gradient(90deg,var(--green),var(--accent));margin-top:6px}
+
+    /* New: Circle Image for side */
+    #circleImage {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--green);
+      box-shadow: 0 0 15px rgba(4,106,56,0.4);
+      z-index: 1000;
+      cursor: pointer;
+      background: white;
+    }
+    #circleImage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <canvas id="confetti"></canvas>
+
+    <div class="top">
+      <div class="brand">
+        <div class="logo">
+          <!-- small flag -->
+          <div class="flag-wrap">
+            <!-- Embedded simple flag -->
+            <svg viewBox="0 0 600 400">
+              <rect width="600" height="400" fill="#006600" />
+              <rect x="0" y="0" width="180" height="400" fill="#fff" />
+              <circle cx="300" cy="200" r="80" fill="#fff" />
+              <path d="M345 150 A1 1 0 0 0 345 250 A1 1 0 0 0 345 150" fill="#006600" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="title">14 August — Independence Day</div>
+          <div class="subtitle">Countdown, Flag animation & milli naghama</div>
+          <div class="spark"></div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="text-align:right">
+          <div style="font-weight:700">Pakistan</div>
+          <div style="font-size:12px;color:rgba(0,0,0,0.5)">Yaadgar din — 14 August</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="left">
+        <div style="font-weight:800;font-size:18px">Countdown to 14 August</div>
+        <div class="countdown" id="countdown" style="margin-top:12px">
+          <div class="tile"><div class="n" id="days">0</div><div class="l">Days</div></div>
+          <div class="tile"><div class="n" id="hours">0</div><div class="l">Hours</div></div>
+          <div class="tile"><div class="n" id="minutes">0</div><div class="l">Minutes</div></div>
+          <div class="tile"><div class="n" id="seconds">0</div><div class="l">Seconds</div></div>
+        </div>
+
+        <div class="message">
+          <strong>Assalamualaikum!</strong>
+          <p style="margin:8px 0 0;color:rgba(0,0,0,0.65)">14 August ko yaadgaar banane ke liye is page ko share karein — apna greeting card banayein, ya isko background music ke sath chalaayein.</p>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="shareBtn">Share Greeting</button>
+          <button class="btn ghost" id="downloadCard">Download Card</button>
+        </div>
+
+      </div>
+
+      <div class="right">
+        <div style="font-weight:700">Play Milli Naghma</div>
+        <div style="font-size:13px;color:rgba(0,0,0,0.6)">Autoplay may be blocked by some browsers — press play if audio doesn't start.</div>
+
+        <audio id="naghma" preload="auto" loop>
+          <!-- Put your mp3 file in the same folder and name it 'naghma.mp3' or change the src below -->
+          <source loop autoplays src="pakn.mp3"type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+
+        <div class="controls">
+          <button class="btn" id="playToggle">Play</button>
+          <button class="btn ghost" id="muteToggle">Mute</button>
+          <button class="btn ghost" id="fireworksBtn">Fireworks</button>
+        </div>
+
+        <div style="margin-top:6px;flex:1;display:flex;flex-direction:column;gap:8px;justify-content:flex-end">
+          <div style="font-weight:700">Flag</div>
+          <div class="waving">
+               <div class="flag" aria-hidden>
+              <!-- SVG removed, replaced with image -->
+              <img src="Flag_of_Pakistan.png" alt="Pakistan Flag" style="width:100%; height: auto; border-radius:8px; box-shadow:0 18px 40px rgba(4,106,56,0.12);" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:16px;color:rgba(0,0,0,0.55);font-size:13px">Made with ❤️ — Happy Independence Day!</div>
+  </div>
+
+  <!-- Circle image outside the card -->
+  <div id="circleImage" title="Pakistan Flag">
+    <img src="hamza.html.png" alt="Pakistan Flag"/>
+  </div>
+
+  <script>
+    /* --------- Countdown logic --------- */
+    function getNextAugust14(){
+      const now = new Date();
+      const year = now.getUTCFullYear();
+      // Use user's local timezone date for boundary decision
+      const localNow = new Date();
+      let target = new Date(localNow.getFullYear(),7,14,0,0,0,0); // Month is 0-indexed -> 7 = August
+      // If today is after Aug 14 (local) or it's Aug 14 but time passed 00:00, choose next year
+      if(localNow > target){
+        target = new Date(localNow.getFullYear()+1,7,14,0,0,0,0);
+      }
+      return target;
+    }
+    const targetDate = getNextAugust14();
+
+    function updateCountdown(){
+      const now = new Date();
+      let diff = targetDate - now; // ms
+      if(diff < 0) diff = 0;
+      const sec = Math.floor(diff/1000)%60;
+      const min = Math.floor(diff/1000/60)%60;
+      const hrs = Math.floor(diff/1000/60/60)%24;
+      const days = Math.floor(diff/1000/60/60/24);
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = String(hrs).padStart(2,'0');
+      document.getElementById('minutes').textContent = String(min).padStart(2,'0');
+      document.getElementById('seconds').textContent = String(sec).padStart(2,'0');
+    }
+    updateCountdown();setInterval(updateCountdown,1000);
+
+    /* --------- Audio controls --------- */
+    const audio = document.getElementById('naghma');
+    const playBtn = document.getElementById('playToggle');
+    const muteBtn = document.getElementById('muteToggle');
+
+    function setPlayState(){
+      if(audio.paused){playBtn.textContent='Play';}
+      else{playBtn.textContent='Pause';}
+    }
+    setPlayState();
+
+    playBtn.addEventListener('click',async ()=>{
+      try{
+        if(audio.paused){
+          await audio.play();
+        } else {
+          audio.pause();
+        }
+      }catch(e){
+        alert('Autoplay blocked. Please click Play to start the audio.');
+      }
+      setPlayState();
+    });
+
+    muteBtn.addEventListener('click',()=>{
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? 'Unmute' : 'Mute';
+    });
+
+    /* Try to start audio softly (may be blocked). We don't force autoplay. */
+    window.addEventListener('load', ()=>{
+      audio.volume = 0.9;
+      audio.muted = false;
+      setTimeout(()=>{
+        audio.play().then(()=>setPlayState()).catch(()=>{});
+      },400);
+    });
+
+    /* --------- Share / Download greeting (simple) --------- */
+    document.getElementById('shareBtn').addEventListener('click', async ()=>{
+      const text = `Happy Independence Day! Countdown to 14 August — ${document.getElementById('days').textContent} days left.`;
+      if(navigator.share){
+        navigator.share({title:'14 August',text});
+      } else {
+        try{ await navigator.clipboard.writeText(text); alert('Greeting copied to clipboard. Share it!'); }
+        catch(e){ prompt('Copy this text and share:', text); }
+      }
+    });
+
+    document.getElementById('downloadCard').addEventListener('click', ()=>{
+      const canvas = document.createElement('canvas');
+      canvas.width = 1200; canvas.height = 630;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#e6f6ec'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = '#006600'; ctx.fillRect(0,0,canvas.width*0.6,canvas.height);
+      ctx.fillStyle = 'white'; ctx.beginPath(); ctx.arc(720,315,120,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#006600'; ctx.font = 'bold 56px Arial'; ctx.fillText('Happy Independence Day!', 40,120);
+      ctx.font = 'bold 36px Arial'; ctx.fillText('14 August — Pakistan', 40,180);
+      ctx.font = 'bold 80px Arial'; ctx.fillStyle='#fff'; ctx.fillText(document.getElementById('days').textContent + ' days', 40,380);
+      const link = document.createElement('a');
+      link.download = '14-aug-greeting.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    /* --------- Confetti / Fireworks (minimal lightweight) --------- */
+    const confettiCanvas = document.getElementById('confetti');
+    const ctx = confettiCanvas.getContext('2d');
+    let confettiParticles = [];
+    function resizeCanvas(){
+      confettiCanvas.width = confettiCanvas.clientWidth;
+      confettiCanvas.height = confettiCanvas.clientHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize',resizeCanvas);
+
+    class Particle {
+      constructor(){
+        this.x = Math.random() * confettiCanvas.width;
+        this.y = Math.random() * confettiCanvas.height - confettiCanvas.height;
+        this.size = Math.random()*8 + 4;
+        this.speed = Math.random() * 3 + 1;
+        this.color = `hsl(${Math.random()*120},70%,50%)`;
+        this.tilt = Math.random()*10 - 10;
+        this.tiltSpeed = Math.random()*0.1 + 0.05;
+      }
+      update(){
+        this.y += this.speed;
+        this.tilt += this.tiltSpeed;
+        if(this.y > confettiCanvas.height) this.y = -this.size;
+      }
+      draw(){
+        ctx.beginPath();
+        ctx.lineWidth = this.size/2;
+        ctx.strokeStyle = this.color;
+        ctx.moveTo(this.x + this.tilt, this.y);
+        ctx.lineTo(this.x + this.tilt + this.size/2, this.y + this.size);
+        ctx.stroke();
+      }
+    }
+
+    function createParticles(num){
+      for(let i=0;i<num;i++){
+        confettiParticles.push(new Particle());
+      }
+    }
+    function updateParticles(){
+      ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+      confettiParticles.forEach(p=>{
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(updateParticles);
+    }
+    createParticles(150);
+    updateParticles();
+
+    /* Fireworks button - toggle */
+    const fireworkBtn = document.getElementById('fireworksBtn');
+    fireworkBtn.addEventListener('click', () => {
+      if(confettiParticles.length){
+        confettiParticles = [];
+        ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+      } else {
+        createParticles(150);
+        updateParticles();
+      }
+    });
+  </script>
+</body>
+</html>
